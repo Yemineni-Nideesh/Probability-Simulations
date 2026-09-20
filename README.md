@@ -12,7 +12,7 @@ Picks random points (x, y) in the unit square. The fraction that land inside the
 
 At this sample size the standard error is about 0.0005, so the estimate should land within a few thousandths of π.
 
-### `ExpectedValue.c`: expected payoff of a simple bet
+### `simple_bet_expected_value.c`: expected payoff of a simple bet
 
 Simulates this game: draw a random integer from 1 to 10,000. If it is odd, win 100. If it is even, lose 50. Half of the numbers are odd, so the exact expected value is
 
@@ -27,7 +27,7 @@ Three runs of each program (results differ every run because the seed comes from
 | Program | Run 1 | Run 2 | Run 3 | Exact value |
 |---|---|---|---|---|
 | `PiEstimate.c` | 3.141210 | 3.141180 | 3.141801 | 3.141593 |
-| `ExpectedValue.c` | 25.010860 | 24.991435 | 24.979795 | 25 |
+| `simple_bet_expected_value.c` | 25.010860 | 24.991435 | 24.979795 | 25 |
 
 All six results are within the expected error of the exact values.
 
@@ -41,8 +41,8 @@ Each estimate is an average of random samples. By the central limit theorem, the
 gcc PiEstimate.c -o pi_estimate
 ./pi_estimate
 
-gcc ExpectedValue.c -o expected_value
-./expected_value
+gcc simple_bet_expected_value.c -o simple_bet
+./simple_bet
 ```
 
 ## Known limitations

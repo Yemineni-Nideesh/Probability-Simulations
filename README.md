@@ -1,6 +1,6 @@
 # Probability Simulations in C
 
-Monte Carlo simulations written in C: estimating a quantity by repeating a random experiment many times and averaging the results. I wrote these to build intuition for probability, expected value, and how estimation error behaves.
+Programs where I use random numbers to estimate things, by repeating a random experiment many times and averaging the results. I made these to understand probability and expected value better.
 
 **Author:** Yemineni Nideesh, B.Tech CSE, IIT Bhubaneswar (2025–2029)
 
@@ -8,32 +8,33 @@ Monte Carlo simulations written in C: estimating a quantity by repeating a rando
 
 ### `PiEstimate.c`: estimating π
 
-Picks random points (x, y) in the unit square. The fraction that land inside the quarter circle x² + y² ≤ 1 approaches π/4, the ratio of the two areas, so π ≈ 4 × (points inside) / (total points). The program uses 10,000,000 points.
+The program picks random points inside a 1 × 1 square. Some land inside the quarter circle drawn in the corner, and the rest land outside. The fraction that land inside is close to π/4, so multiplying it by 4 gives an estimate of π. I use 10,000,000 points.
 
-At this sample size the standard error is about 0.0005, so the estimate should land within a few thousandths of π.
+With this many points, the answer is usually off by only about 0.0005.
 
-### `simple_bet_expected_value.c`: expected payoff of a simple bet
+### `simple_bet_expected_value.c`: average result of a simple bet
 
-Simulates this game: draw a random integer from 1 to 10,000. If it is odd, win 100. If it is even, lose 50. Half of the numbers are odd, so the exact expected value is
+This program plays a simple game 10,000,000 times. It picks a random number from 1 to 10,000. If the number is odd, I win 100. If it is even, I lose 50.
 
-0.5 × 100 + 0.5 × (−50) = **25 per play**.
+Half the numbers are odd and half are even, so the average result per play should be:
 
-The program plays 10,000,000 times and prints the average payoff. The payoff has a standard deviation of 75, so the standard error is 75 / √10,000,000 ≈ 0.024.
+0.5 × 100 + 0.5 × (−50) = **25**
+
+The program prints the average result it got, and it usually lands within about 0.02 of 25.
 
 ## Example results
 
-Three runs of each program (results differ every run because the seed comes from the clock):
+I ran each program three times. The answers change slightly every run because the random numbers are different each time.
 
-| Program | Run 1 | Run 2 | Run 3 | Exact value |
+| Program | Run 1 | Run 2 | Run 3 | Exact answer |
 |---|---|---|---|---|
 | `PiEstimate.c` | 3.141210 | 3.141180 | 3.141801 | 3.141593 |
 | `simple_bet_expected_value.c` | 25.010860 | 24.991435 | 24.979795 | 25 |
 
-All six results are within the expected error of the exact values.
+## What I learned
 
-## Why the error shrinks
-
-Each estimate is an average of random samples. By the central limit theorem, the typical error of such an average shrinks in proportion to 1/√N. Using 100 times more samples cuts the error by only 10 times, which is why Monte Carlo methods need very large sample sizes for high accuracy.
+- More random samples give a more accurate answer, but the improvement is slow. Using 100 times more samples makes the error only about 10 times smaller.
+- The expected value of a game can be worked out with a formula, and a simulation of the same game should agree with it.
 
 ## Build and run
 
@@ -45,17 +46,16 @@ gcc simple_bet_expected_value.c -o simple_bet
 ./simple_bet
 ```
 
-## Known limitations
+## What's missing
 
-- Both programs use `rand()`, a weak generator whose `RAND_MAX` varies by platform. `rand() % 10000` also has a slight bias, negligible here but worth knowing.
-- The seed comes from the clock, so a run can't be reproduced exactly. There is no fixed-seed option yet.
-- The programs print only the estimate, not the exact value, the error, or a confidence interval.
-- Each program uses a single sample size, so the 1/√N behavior above is stated from theory and not yet measured here.
+- The programs only print the answer. They don't show how far it is from the true value.
+- I only tried one number of samples (10,000,000). I haven't yet tested how the error changes with fewer or more samples.
+- The random numbers come from C's built-in `rand()`, which is fine for learning but not the best quality. I want to try a better one later.
+- The random numbers change every run, so I can't repeat an exact run.
 
-## Roadmap
+## Next steps
 
-- Print the exact value, the error, and a 95% confidence interval.
-- Run each simulation many times at several sample sizes and chart error against N to show the 1/√N trend.
-- Add a fixed-seed option and a better random number generator.
-- Betting simulation with a bankroll: probability of ruin, and bet sizing with the Kelly criterion.
-- Later: option pricing with a binomial tree, compared against Black–Scholes and Monte Carlo.
+- Print the true value and the error next to each estimate.
+- Test different numbers of samples and make a chart of how the error changes.
+- Simulate betting with a starting amount of money, to see how often I go broke.
+- Later: try pricing a simple stock option with a simulation.

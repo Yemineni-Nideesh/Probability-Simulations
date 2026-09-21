@@ -21,6 +21,21 @@ Half the numbers are odd and half are even, so the average result per play shoul
 0.5 × 100 + 0.5 × (−50) = **25**
 
 The program prints the average result it got, and it usually lands within about 0.02 of 25.
+### `Linear_vs_Squared_Payouts.c`: comparing two payouts
+
+Two options with a die:
+- **Option A:** roll the die and get paid the number it shows.
+- **Option B:** pay $4 first, roll the die, and get paid the square of the number.
+
+Option A averages 3.5 per play. Option B averages (1 + 4 + 9 + 16 + 25 + 36) / 6 − 4 = 91/6 − 4 ≈ 11.17 per play, so it is much better on average. The program plays each option 10,000,000 times and prints the average result of each.
+
+### `Risk_vs_Reward_Simulation.c`: sure money or a coin flip
+
+Two options:
+- **Option A:** take $500 for sure.
+- **Option B:** flip a coin and get $1200 for heads, nothing for tails.
+
+Option B averages 0.5 × 1200 = $600, which beats $500 if you play many times. For a single play the choice depends on how much risk you are willing to take.
 
 ## Example results
 

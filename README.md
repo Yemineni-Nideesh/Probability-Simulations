@@ -8,7 +8,7 @@ Programs where I use random numbers to estimate things, by repeating a random ex
 
 ### `PiEstimate.c`: estimating π
 
-The program picks random points inside a 1 × 1 square. Some land inside the quarter circle drawn in the corner, and the rest land outside. The fraction that land inside is close to π/4, so multiplying it by 4 gives an estimate of π. I use 10,000,000 points.
+The program picks random points inside a 2 × 2 square. Some land inside the quarter circle drawn in the corner, and the rest land outside. The fraction that land inside is close to π/4, so multiplying it by 4 gives an estimate of π. I use 10,000,000 points.
 
 With this many points, the answer is usually off by only about 0.0005.
 
